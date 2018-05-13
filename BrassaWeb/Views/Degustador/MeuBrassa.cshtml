@@ -1,0 +1,51 @@
+﻿@model Degustador
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<input type="hidden" value="@Model.Id" id="IdDegustador" />
+
+<div class="bloc bgc-desert-sand" id="bloc-8">
+    <div class="container bloc-sm" id="dvPesquisa">
+        <main role="main" class="container">
+            <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded box-shadow">
+                <div class="lh-100">
+                    <h3 class="mb-0 lh-100">Meu Brassa</h3>
+                </div>
+            </div>
+            <div class="my-3 p-3 bgc-desert-sand rounded box-shadow">
+                <div class="media text-muted pt-3">
+                    <i class="fas fa-shopping-cart" id="carrinho"></i>
+                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                        <span>
+                            <strong class="d-block text-gray-dark"> Meus pedidos</strong>
+                            <button class="btn btn-sm btn-outline-secondary" id="btnMeusPedidos">Exibir</button>
+                        </span>
+                    </p>
+                </div>
+                <div id="dvListaCarrinhos" hidden>
+                    @Html.Partial("_ListaCarrinhos", new List<Venda>())
+                </div>
+                <div class="media text-muted pt-3">
+                    <i class="fas fa-thumbs-up"></i>
+                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                        <strong class="d-block text-gray-dark"> Minhas avaliações</strong>
+                        <button class="btn btn-sm btn-outline-secondary" id="btnMinhasAvaliacoes">Exibir</button>
+                    </p>
+                </div>
+                <div class="media text-muted pt-3">
+                    <i class="fas fa-user-cog"></i>
+                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                        <strong class="d-block text-gray-dark"> Minhas configurações</strong>
+                        <button class="btn btn-sm btn-outline-secondary" id="btnMinhasConfiguracoes">Exibir</button>
+                    </p>
+                </div>
+                <small class="d-block text-right mt-3">
+                    <a asp-action="Encontrar" asp-controller="Home">Localizar brasseiros</a>
+                </small>
+            </div>
+        </main>
+    </div>
+</div>
+<script src="~/js/meu-brassa.js"></script>

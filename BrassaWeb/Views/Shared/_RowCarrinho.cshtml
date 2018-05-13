@@ -1,0 +1,21 @@
+﻿@model ItemVenda
+@{
+    List<EstoqueRecipiente> listaRecipientes = ViewBag.ListaRecipientes;
+}
+<div class="row form-group-sm no-gutters">
+    <div class="col-sm-4">
+        <select class="ddlRecipiente form-control-sm form-control control-height">
+            @foreach (var recipiente in listaRecipientes)
+            {
+                <option value="@recipiente.Id">@recipiente.Recipiente.Tipo - @string.Format("{0:n2}", recipiente.Recipiente.Volume)L - @string.Format("R${0:n2}", recipiente.ValorUnidade)</option>
+            }
+        </select>
+    </div>
+    <div class="col-sm-2"><input type="text" value="@string.Format("{0:n2}", Model.ValorReceita)" class="txtPrecoReceita form-control-sm form-control control-height" disabled /></div>
+    <div class="col-sm-2"><input type="text" value="@Model.QuantidadeRecipiente" class="txtQuantidadeRecipiente form-control-sm form-control control-height" /></div>
+    <div class="col-sm-3"><input type="text" value="@string.Format("{0:n2}", Model.ValorItem)" class="txtValorItem form-control-sm form-control control-height" disabled /></div>
+    <div class="btn-group-sm col-sm-1" role="group" aria-label="Ação">
+        @*<button type="button" class="btn btn-sm btnAtualizarItem"><i class="fas fa-sync"></i></button>*@
+        <button type="button" class="btn btn-sm btnExcluirItem"><i class="fa fa-trash"></i></button>
+    </div>
+</div>

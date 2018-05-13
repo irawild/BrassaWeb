@@ -1,0 +1,92 @@
+﻿@model BrassaWeb.Models.EstoqueReceita
+
+@{
+    var corCerveja = "";
+    var textColor = "black";
+    if (Model.Receita != null)
+    {
+        if (Model.Receita.Cor <= 12)
+        {
+            textColor = "black";
+        }
+        else
+        {
+            textColor = "white";
+        }
+        if (Model.Receita.Cor <= 2) { corCerveja = "#F3F993"; }
+        else if (Model.Receita.Cor <= 3) { corCerveja = "#F5F75C"; }
+        else if (Model.Receita.Cor <= 4) { corCerveja = "#F6F513"; }
+        else if (Model.Receita.Cor <= 5) { corCerveja = "#EAE615"; }
+        else if (Model.Receita.Cor <= 6) { corCerveja = "#E0D01B"; }
+        else if (Model.Receita.Cor <= 7) { corCerveja = "#D5BC26"; }
+        else if (Model.Receita.Cor <= 8) { corCerveja = "#CDAA37"; }
+        else if (Model.Receita.Cor <= 9) { corCerveja = "#C1963C"; }
+        else if (Model.Receita.Cor <= 10) { corCerveja = "#BE8C3A"; }
+        else if (Model.Receita.Cor <= 11) { corCerveja = "#BE823A"; }
+        else if (Model.Receita.Cor <= 12) { corCerveja = "#C17A37"; }
+        else if (Model.Receita.Cor <= 13) { corCerveja = "#BF7138"; }
+        else if (Model.Receita.Cor <= 14) { corCerveja = "#BC6733"; }
+        else if (Model.Receita.Cor <= 15) { corCerveja = "#B26033"; }
+        else if (Model.Receita.Cor <= 16) { corCerveja = "#A85839"; }
+        else if (Model.Receita.Cor <= 17) { corCerveja = "#985336"; }
+        else if (Model.Receita.Cor <= 18) { corCerveja = "#8D4C32"; }
+        else if (Model.Receita.Cor <= 19) { corCerveja = "#7C452D"; }
+        else if (Model.Receita.Cor <= 20) { corCerveja = "#6B3A1E"; }
+        else if (Model.Receita.Cor <= 21) { corCerveja = "#5D341A"; }
+        else if (Model.Receita.Cor <= 22) { corCerveja = "#4E2A0C"; }
+        else if (Model.Receita.Cor <= 23) { corCerveja = "#4A2727"; }
+        else if (Model.Receita.Cor <= 24) { corCerveja = "#361F1B"; }
+        else if (Model.Receita.Cor <= 25) { corCerveja = "#261716"; }
+        else if (Model.Receita.Cor <= 26) { corCerveja = "#231716"; }
+        else if (Model.Receita.Cor <= 27) { corCerveja = "#19100F"; }
+        else if (Model.Receita.Cor <= 28) { corCerveja = "#16100F"; }
+        else if (Model.Receita.Cor <= 29) { corCerveja = "#120D0C"; }
+        else if (Model.Receita.Cor <= 30) { corCerveja = "#100B0A"; }
+        else { corCerveja = "#050B0A"; }
+    }
+}
+
+@if (Model.Receita != null)
+{
+    <div class="row" style="margin:5px;">
+        <div class="col-md-4" style="border:black solid 1px;border-radius:5px;padding:10px;background-color:@corCerveja;color:@textColor;">
+            <div>
+                <h4>@Model.Receita.Estilo.Familia</h4>
+            </div>
+            <div>
+                <h5>@Model.Receita.Estilo.Nome - @Model.Receita.Descricao</h5>
+            </div>
+            <div>
+                <table style="padding:6px;margin-left:10px;">
+                    <tr>
+                        <td><b>GO</b></td>
+                        <td align="right" style="width:80px;">@string.Format("{0:n3}", @Model.Receita.GravidadeOriginal / 1000)</td>
+                        <td align="center" style="width:20px;">-</td>
+                        <td><b>GF</b></td>
+                        <td align="right" style="width:80px;">@string.Format("{0:n3}", @Model.Receita.GravidadeFinal / 1000)</td>
+                    </tr>
+                    <tr>
+                        <td><b>ABV</b></td>
+                        <td align="right" style="width:80px;">@string.Format("{0:n1}", @Model.Receita.ABV)</td>
+                        <td align="center" style="width:20px;">-</td>
+                        <td><b>IBU</b></td>
+                        <td align="right" style="width:80px;">@string.Format("{0:n0}", @Model.Receita.IBU)</td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                @if (Model.Quantidade > 0)
+                {
+                    <button style="margin-top:5px;" class="btn btn-default" id="btnVoltar">Quero experimentar</button>
+                }
+                <button style="margin-top:5px;" class="btn btn-default" id="btnVoltar">Ajudar na produção</button>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row" style="margin-left:5px;" id="dvBotaoOutrasReceitas">
+        <div class="col-md-4">
+            <button class="btn btn-rd btn-md" id="btnVerOutras">Outras receitas</button>
+        </div>
+    </div>
+}

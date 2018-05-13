@@ -1,0 +1,39 @@
+﻿@model IEnumerable<BrassaWeb.Models.Brasseiro>
+
+<div class="row">
+    <h3 style="margin-left:5px;">Estes são os brasseiros da sua cidade</h3>
+</div>
+<br />
+<div style="margin-left:5px;" class="row">
+    <table style="margin-left:10px;" class="table table-responsive table-condensed">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nome)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Marca)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="itemRow">
+                    <td>
+                        <input type="hidden" class="IdBrasseiro" value="@item.Id" />
+                        <input type="hidden" class="NomeBrasseiro" value="@item.Nome" />
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Marca)
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-secondary btnHistoricoBrasseiro">Detalhes</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,40 @@
+﻿@model Venda
+@{
+    ViewData["Title"] = "Carrinho";
+    List<EstoqueRecipiente> listaRecipientes = ViewBag.ListaRecipientes;
+    //List<EstoqueReceita> estoques = ViewBag.Estoques;
+}
+<input type="hidden" id="IdVenda" value="@Model.Id" />
+<div class="bloc bloc-sm" id="bloc-8">
+    <hr />
+    <h3>Seu pedido para @Model.Brasseiro.Nome</h3>
+    <br />
+    <input type="hidden" id="IdBrasseiro" value="@Model.Brasseiro.Id" />
+    <div class="container" style="border:solid gray 1px;border-radius:4px;width:98%;">
+        @foreach (var item in Model.ItensVenda)
+        {
+            <div class="itemVenda">
+                <input type="hidden" class="IdItemVenda" value="@item.Id" />
+                <div class="row" style="height:40px;">
+                    <div class="col-sm-5"><b>@item.Receita.Estilo.Familia - @item.Receita.Descricao</b></div>
+                </div>
+                <div class="row no-gutters">
+                    <div class="col-sm-4">Recipiente</div>
+                    <div class="col-sm-2">Rec + Liq</div>
+                    <div class="col-sm-2">Qtde.</div>
+                    <div class="col-sm-3">Total</div>
+                    <div class="col-sm-1"></div>
+                </div>
+                <div class="dvRowCarrinho">
+                    @Html.Partial("_RowCarrinho", item)
+                </div>
+            </div>
+        }
+    </div>
+    <div class="container" style="margin-top:10px;margin-left:10px;">
+        <button id="btnPagarMe" class="btn btn-outline-success">Pagar.Me</button>
+        <button class="btn btn-md btn-success" id="btnConcluirCompra">Concluir compra</button>
+        <button class="btn btn-md btn-warning" id="btnLimparCarrinho">Limpar carrinho</button>
+    </div>
+</div>
+<script type="text/javascript" src="~/js/carrinho.js"></script>

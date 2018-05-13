@@ -1,0 +1,161 @@
+﻿@model IEnumerable<BrassaWeb.Models.EstoqueReceita>
+
+@{
+    @functions
+    {
+        string getCorCerveja(decimal? srm)
+        {
+            if (srm == null)
+            {
+                return "white";
+            }
+
+            var corCerveja = "";
+
+            if (srm <= 2) { corCerveja = "#F3F993"; }
+            else if (srm <= 3) { corCerveja = "#F5F75C"; }
+            else if (srm <= 4) { corCerveja = "#F6F513"; }
+            else if (srm <= 5) { corCerveja = "#EAE615"; }
+            else if (srm <= 6) { corCerveja = "#E0D01B"; }
+            else if (srm <= 7) { corCerveja = "#D5BC26"; }
+            else if (srm <= 8) { corCerveja = "#CDAA37"; }
+            else if (srm <= 9) { corCerveja = "#C1963C"; }
+            else if (srm <= 10) { corCerveja = "#BE8C3A"; }
+            else if (srm <= 11) { corCerveja = "#BE823A"; }
+            else if (srm <= 12) { corCerveja = "#C17A37"; }
+            else if (srm <= 13) { corCerveja = "#BF7138"; }
+            else if (srm <= 14) { corCerveja = "#BC6733"; }
+            else if (srm <= 15) { corCerveja = "#B26033"; }
+            else if (srm <= 16) { corCerveja = "#A85839"; }
+            else if (srm <= 17) { corCerveja = "#985336"; }
+            else if (srm <= 18) { corCerveja = "#8D4C32"; }
+            else if (srm <= 19) { corCerveja = "#7C452D"; }
+            else if (srm <= 20) { corCerveja = "#6B3A1E"; }
+            else if (srm <= 21) { corCerveja = "#5D341A"; }
+            else if (srm <= 22) { corCerveja = "#4E2A0C"; }
+            else if (srm <= 23) { corCerveja = "#4A2727"; }
+            else if (srm <= 24) { corCerveja = "#361F1B"; }
+            else if (srm <= 25) { corCerveja = "#261716"; }
+            else if (srm <= 26) { corCerveja = "#231716"; }
+            else if (srm <= 27) { corCerveja = "#19100F"; }
+            else if (srm <= 28) { corCerveja = "#16100F"; }
+            else if (srm <= 29) { corCerveja = "#120D0C"; }
+            else if (srm <= 30) { corCerveja = "#100B0A"; }
+            else { corCerveja = "#050B0A"; }
+
+            return corCerveja;
+        }
+
+        string getCorTexto(decimal? srm)
+        {
+            if (srm == 0)
+            { return "black"; }
+            if (srm < 14)
+            { return "black"; }
+            else
+            { return "white"; }
+        }
+    }
+}
+
+<button style="margin-left:10px;margin-top:10px;" class="btn btn-secondary" id="btnVoltarBrasseiros">< Brasseiros</button>
+<br />
+<h3 style="margin-left:10px;" id="CabecalhoEstoqueBrasseiro"></h3>
+@foreach (var item in Model)
+{
+    <div style="margin:5px;" class="receitaBrasseiro container">
+        <div class="col-md-4" style="border:white solid 1px;border-radius:5px;background-color:@getCorCerveja(@item.Receita.Cor);color:@getCorTexto(@item.Receita.Cor);width:98%">
+            <input type="hidden" class="IdEstoque" value="@item.Id" />
+            <div>
+                <h4>@item.Receita.Estilo.Familia</h4>
+                <span class="heading">Nota</span>
+                @if (item.Avaliacoes != null && item.Avaliacoes.Count() > 0)
+                {
+                    @if (@item.Avaliacoes.Average(a => a.Nota) < 1.0)
+                    {
+                        <span class="fa fa-thumbs-down checked"></span>
+                    }
+                    @if (@item.Avaliacoes.Average(a => a.Nota) >= 1.0 && @item.Avaliacoes.Average(a => a.Nota) < 2)
+                    {
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star-half checked"></span>
+                    }
+                    @if (@item.Avaliacoes.Average(a => a.Nota) >= 2.0 && @item.Avaliacoes.Average(a => a.Nota) < 3)
+                    {
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star-half checked"></span>
+                    }
+                    @if (@item.Avaliacoes.Average(a => a.Nota) >= 3.0 && @item.Avaliacoes.Average(a => a.Nota) < 4)
+                    {
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star-half checked"></span>
+                    }
+                    @if (@item.Avaliacoes.Average(a => a.Nota) >= 4.0 && @item.Avaliacoes.Average(a => a.Nota) < 5)
+                    {
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star-half checked"></span>
+                    }
+                    @if (@item.Avaliacoes.Average(a => a.Nota) == 5.0)
+                    {
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                    }
+                    <span>(@string.Format("{0:n1}", @item.Avaliacoes.Average(a => a.Nota)))</span>
+                    <p>@item.Avaliacoes.Count() avaliações.</p>
+                }
+                else
+                {
+                    <span>(0,0)</span>
+                    <p>@item.Avaliacoes.Count() avaliações.</p>
+                }
+                <hr style="border:1px solid">
+            </div>
+            <div>
+                <h5>@item.Receita.Estilo.Nome - @item.Receita.Descricao</h5>
+            </div>
+            <div>
+                <table style="padding:6px;margin-left:10px;">
+                    <tbody>
+                        <tr>
+                            <td><b>GO</b></td>
+                            <td align="right" style="width:80px;">@string.Format("{0:n3}", @item.Receita.GravidadeOriginal / 1000)</td>
+                            <td align="center" style="width:20px;">-</td>
+                            <td><b>GF</b></td>
+                            <td align="right" style="width:80px;">@string.Format("{0:n3}", @item.Receita.GravidadeFinal / 1000)</td>
+                        </tr>
+                        <tr>
+                            <td><b>ABV</b></td>
+                            <td align="right" style="width:80px;">@string.Format("{0:n1}", @item.Receita.ABV)</td>
+                            <td align="center" style="width:20px;">-</td>
+                            <td><b>IBU</b></td>
+                            <td align="right" style="width:80px;">@string.Format("{0:n0}", @item.Receita.IBU)</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td><b>Em estoque</b></td>
+                            <td align="right" style="width:80px;">@string.Format("{0:n1} L", @item.Quantidade)</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div>
+                @if (item.Quantidade > 0)
+                {
+                    <a style="margin-top:5px;" href="~/Degustador/Carrinho?idEstoque=@item.Id" class="btn btn-secondary">Quero degustar</a>
+                    @*<button type="button" style="margin-top:5px;" class="btn btn-secondary">Quero degustar</button>*@
+                }
+                <button type="button" style="margin-top:5px;" class="btn btn-secondary btnAjudarProducao">Ajudar na produção</button>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewData["Title"] = "Encontrar";
+    var listaEstados = ViewBag.ListaEstados;
+}
+
+<div class="bloc bgc-desert-sand" id="bloc-8">
+    <div class="container bloc-md" id="dvPesquisa">
+        <div class="row">
+            <div class="col-sm-12">
+                <form id="form_1" novalidate success-msg="Your message has been sent." fail-msg="Sorry it seems that our mail server is not responding, Sorry for the inconvenience!">
+                    <h3 class="mg-md">
+                        Localize os brasseiros próximos a você
+                    </h3>
+                    <div class="form-group">
+                        <label>Estado</label>
+                        <select id="ddlEstado" class="form-control">
+                            <option value="0" selected>Selecione um estado</option>
+                            @foreach (var estado in listaEstados)
+                            {
+                                <option value="@estado.Id">@estado.Sigla - @estado.Nome</option>
+                            }
+                        </select>
+                        <div id="dvListaCidades" hidden>
+                            @Html.Partial("_ListaCidades", new List<Cidade>())
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary btn-md" id="btnLocalizar">Localizar</button>
+                </form>
+            </div>
+        </div>
+        <br />
+        <div hidden id="dvBrasseiros">
+            @Html.Partial("_ListaBrasseiros", new List<Brasseiro>())
+        </div>
+    </div>
+    <div hidden id="dvEstoqueBrasseiro">
+        <br />
+        @Html.Partial("_EstoqueBrasseiro", new List<EstoqueReceita>())
+    </div>
+</div>
+
+<script src="~/js/encontrar.js"></script>
+<!-- bloc-8 END -->

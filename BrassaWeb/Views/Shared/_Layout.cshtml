@@ -1,0 +1,134 @@
+﻿<!doctype html>
+<html lang="Default">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <link rel="shortcut icon" type="image/png" href="~/images/Icon.png">
+    <link rel="stylesheet" type="text/css" href="../lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/ionicons.min.css">
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="~/lib/fontawesome/css/fontawesome-all.min.css" />
+    <script src="../lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/jquery.mask.min.js"></script>
+    <script src="../lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../js/blocs.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="../js/site.js"></script>
+    <!-- SCRIPT PAGAR.ME -->
+    <script src="https://assets.pagar.me/checkout/1.1.0/checkout.js"></script>
+
+    <title>Brassa</title>
+    <!-- Google Analytics -->
+    <!-- Google Analytics END -->
+</head>
+<body>
+    <div class="page-container">
+        <nav class="navbar navbar-expand-lg navbar-dark bgc-seal-brown">
+            <a class="navbar-brand" asp-action="Index" asp-controller="Home"><img src="~/images/logotipo.png" alt="logo" height="60" /></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" asp-action="Encontrar" asp-controller="Home">Localizar</a>
+                    </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="MeuBrassa" asp-controller="Home">Meu brassa</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="Logout" asp-controller="Account">Sair</a>
+                        </li>
+                        <li class="nav-item" id="carrinho" hidden>
+                            <a class="nav-link" asp-action="Carrinho" asp-controller="Degustador"><span><i class="fas fa-shopping-cart" id="carrinho"></i><label id="itensCarrinho"></label></span></a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="Register" asp-controller="Account">Criar conta</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="Login" asp-controller="Account">Entrar</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </nav>
+        @*<div class="bloc bgc-seal-brown d-bloc" id="bloc-0">
+                <div class="container bloc-sm">
+                    <nav class="navbar">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="~/Home/Index"><img src="~/images/logotipo.png" alt="logo" height="60" /></a>
+                            <button id="nav-toggle" type="button" class="ui-navbar-toggle navbar-toggle" data-toggle="collapse" data-target=".navbar-1">
+                                <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse navbar-1">
+                            <ul class="site-navigation nav navbar-nav">
+                                <li>
+                                    <a href="~/Home/Encontrar" class="ltc-meat-brown">Encontrar</a>
+                                </li>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li>
+                                        <a href="~/Usuario/MeuBrassa" class="ltc-meat-brown">Meu brassa</a>
+                                    </li>
+                                    <li><a asp-area="" class="ltc-meat-brown" asp-controller="Account" asp-action="Logout">Sair</a></li>
+                                }
+                                else
+                                {
+                                    <li><a asp-area="" class="ltc-meat-brown" asp-controller="Account" asp-action="Register">Criar conta</a></li>
+                                    <li><a asp-area="" class="ltc-meat-brown" asp-controller="Account" asp-action="Login">Entrar</a></li>
+                                }
+                            </ul>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>*@
+        <div class="bgc-desert-sand">
+            @RenderBody()
+        </div>
+        <!-- Footer - bloc-10 -->
+        <div class="bloc bgc-seal-brown d-bloc" id="bloc-10">
+            <div class="container bloc-lg">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h3 class="mg-md bloc-mob-center-text">
+                            Sobre
+                        </h3>
+                        <a href="index.html" class="a-btn a-block bloc-mob-center-text">O time</a>
+                        <a href="index.html" class="a-btn a-block bloc-mob-center-text">Contato</a>
+                    </div>
+                    <div class="col-sm-3">
+                        <h3 class="mg-md bloc-mob-center-text">
+                            Baixe o aplicativo
+                        </h3><a href="index.html" class="a-btn a-block bloc-mob-center-text">iPhone</a><a href="index.html" class="a-btn a-block bloc-mob-center-text">Android</a>
+                    </div>
+                    <div class="col-sm-3">
+                        <h3 class="mg-md bloc-mob-center-text">
+                            Siga-nos
+                        </h3><a href="index.html" class="a-btn a-block bloc-mob-center-text">Twitter</a><a href="index.html" class="a-btn a-block bloc-mob-center-text">Facebook</a>
+                    </div>
+                    <div class="col-sm-3">
+                        <h3 class="mg-md bloc-mob-center-text">
+                            A empresa
+                        </h3>
+                        <a href="~/Home/About" class="a-btn a-block bloc-mob-center-text">Termos de uso</a>
+                        <a href="index.html" class="a-btn a-block bloc-mob-center-text">A empresa</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="page-loading-blocs-notifaction"></div>
+</body>
+</html>

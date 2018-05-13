@@ -1,0 +1,74 @@
+﻿@model Degustador
+@{
+    ViewData["Title"] = "Degustador";
+    var listaEstados = ViewBag.ListaEstados;
+}
+
+<div class="bloc bgc-desert-sand" id="bloc-8">
+    <div class="container bloc-md">
+
+        @if (Model != null)
+        {
+            <div class="row" id="dvCabecalho">
+                <input type="hidden" id="IdCidade" value="@Model.Cidade.Id" />
+                <div class="col-md-5">
+                    <h4>Olá, @Model.Nome! O que você procura?</h4>
+                    <button style="margin-left:10px;" class="btn btn-md btn-secondary" id="btnCervejaPronta">Cerveja pronta</button>
+                    <button class="btn btn-md btn-dark" id="btnBrasseiros">Brasseiros</button>
+                </div>
+            </div>
+
+            <div hidden id="dvBrasseiros">
+                @Html.Partial("_ListaBrasseiros", new List<Brasseiro>())
+            </div>
+
+            <div hidden id="dvEstoqueBrasseiro">
+                @Html.Partial("_EstoqueBrasseiro", new List<EstoqueReceita>())
+            </div>
+
+            <div hidden id="dvDetalheEstoqueBrasseiro">
+                @Html.Partial("_DetalheEstoque", new EstoqueReceita())
+            </div>
+        }
+        else
+        {
+            <div class="bloc bgc-desert-sand" id="bloc-8">
+                <div class="container bloc-md">
+                    <h2>Degustador</h2>
+                    <div class="form-group">
+                        <h4>Bem vindo ao Brassa!</h4>
+                        <h5>Fale um pouco mais sobre você.</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Seu nome</label>
+                                <input class="form-control" type="text" id="txtNome" />
+                            </div>
+                            <div class="col-md-2">
+                                <label>Sua idade</label>
+                                <input class="form-control" type="number" id="txtIdade" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Seu estado</label>
+                                <select id="ddlEstado" class="form-control">
+                                    <option value="0" selected>Selecione um estado</option>
+                                    @foreach (var estado in listaEstados)
+                                    {
+                                        <option value="@estado.Id">@estado.Sigla - @estado.Nome</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div id="dvListaCidades" hidden>
+                            @Html.Partial("_ListaCidades", new List<Cidade>())
+                        </div>
+                        <button style="margin-top:10px;" class="btn btn-rd" id="btnSalvarDegustador">Salvar</button>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script src="~/js/degustador.js" type="text/javascript"></script>

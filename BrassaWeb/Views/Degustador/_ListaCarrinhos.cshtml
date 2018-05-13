@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Venda>
+<ul class="list-group itemCarrinho">
+    @foreach (var venda in Model)
+    {
+        <li style="margin-left:30px;" class="list-group-item-sm">
+            <input type="hidden" value="@venda.Id" class="IdVenda" />
+            @venda.Brasseiro.Nome @if (venda.Situacao.Equals("Pedido"))
+            {
+                <a href="~/Degustador/AbrirPedido?idVenda=@venda.Id" class="btn btn-sm btn-secondary">Ver pedido</a>
+            }
+        </li>
+    }
+</ul>
